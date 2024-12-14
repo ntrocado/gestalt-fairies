@@ -275,9 +275,28 @@
 
 ;;; 8
 
-(pb :foo
-  :bank-msb 2
+(pb :p1
   :instrument 74
-  :type :set
-  :note 60
-  )
+  :bank-msb 2
+  :scale :chromatic
+  :glide (pseq '(0 .2 .8 .3 .5 .08))
+  :degree (pseq '(10 8 6 5))
+  :octave (pseq '(4 6 1 2 3))
+  :dur (pseq '(4 .2 2 .3 .9 .4
+	       .03 .08 .2 .35 .1 .09))
+  :wave (pseq '(.8 .2 .1))
+  :timbre (pseq (list (pgeom* .02 .3 8)
+		      (pgeom* .02 .4 5)))
+  :cutoff (pseq (list (pwhite .25 .56 1)
+		      (pwhite .5 .6 1)))
+  :resonance (pseq (list .5
+			 (pwhite .5 .7 1)))
+  :cycling-rise (pseq (list 0
+			    (pwhite .1 .3 1)))
+  :cycling-fall (pseq (list 0
+			    (pwhite .2 .7 1)))
+  :decay (pseq '(.1 .7 .28 .05))
+  :quant 0
+  :tempo 140)
+
+
