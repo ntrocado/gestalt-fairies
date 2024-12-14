@@ -300,3 +300,38 @@
   :tempo 140)
 
 
+;;; 9
+
+(defun f-sum (c i m)
+  (+ c (* i m)))
+
+(defun f-difference (c i m)
+  (abs (- c (* i m))))
+
+(defmacro pkey (key)
+  `(event-value *event* ,key))
+
+(tempo 80)
+
+(let ((m 207.65))
+  (pb :fm-spectral
+    :bank-msb 2
+    :instrument 75
+    :c (pseq (list (pn (midinote-freq 67) 18)
+		   (pn (midinote-freq 66) 18)
+		   (pn (midinote-freq 60) 18)))
+    :i (pseq (list (pseries 1 .9 11)
+		   (pseries 9 -.9 7)))
+    :freq (pwrap (pseq (list (pfin (pf (f-sum (pkey :c)
+					      (pkey :i)
+					      m))
+				   1)
+			     (pfin (pf (f-difference (pkey :c)
+						     (pkey :i)
+						     m))
+				   1)))
+		 23 2500)
+    :dur (pwrap (pseries 1/16 1/32) 1/16 2/5)
+    :amp (prerange (pkey :freq) '(23 2500) '(1 0))
+    :resonance (pwhite .35 .50)
+    :quant 0))
