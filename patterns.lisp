@@ -28,6 +28,10 @@
 	(106 "Envelope Decay"     :decay          unipolar-1-to-midi)
 	(29  "Envelope Sustain"   :sustain        unipolar-1-to-midi)))
 
+(defun preset (n)
+  (multiple-value-bind (bank program)
+      (floor (1- n) 128)
+    (format t "bank-msb: ~a; program: ~a" bank program)))
 
 ;;; 1
 
@@ -73,11 +77,6 @@
 
 
 ;;; 2
-
-(defun preset (n)
-  (multiple-value-bind (bank program)
-      (floor (1- n) 128)
-    (format t "bank-msb: ~a; program: ~a" bank program)))
 
 (pb :#x382C4B6E99A53D8B
   :bank-msb 2
